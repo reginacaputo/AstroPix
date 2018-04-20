@@ -2,7 +2,7 @@
 # This was created with the python wrapper --> create_source_file.py <--
 
 Version          1 
-Geometry         PixSiDet.geo.setup // Update this to your path 
+Geometry         ../geo/PixSiDet.geo.setup // Update this to your path 
 CheckForOverlaps 1000 0.01 
 PhysicsListEM    Livermore 
 
@@ -12,12 +12,12 @@ StoreOnlyEventsWithEnergyLoss  true  // Only relevant if no trigger criteria is 
 DiscretizeHits                 true 
 
 Run FFPS 
-FFPS.FileName              FarFieldPointSource_100.000keV_Cos1.0
+FFPS.FileName              FarFieldPointSource_500.000keV_Cos1.0
 FFPS.NTriggers             10000 
 
 
 FFPS.Source One 
 One.ParticleType        1 
 One.Beam                FarFieldPointSource  0.0 0 
-One.Spectrum            Mono  100
+One.Spectrum            Mono  500
 One.Flux                1000.0 
