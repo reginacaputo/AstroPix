@@ -1,0 +1,60 @@
+/////////
+// 
+// All the simulations use the MEGAlib toolkit (http://megalibtoolkit.com) 
+//
+// Author: Regina Caputo (regina.caputo@nasa.gov)
+// Date: April 18, 2018
+//
+// Usage: geomega -g PixSiDet.geo.setup
+//
+/////////
+
+Name My_PixSiDet
+Verision 0.0
+
+SurroundingSphere 50.0 0.0 0.0 0.0 50.0
+Include $MEGALIB/resource/examples/geomega/materials/Materials.geo
+
+// The Mother Volume of the Detector Configuration:
+Volume WorldVolume
+WorldVolume.Material Vacuum
+WorldVolume.Visibility 0
+WorldVolume.Color 0
+WorldVolume.Shape BRIK 50. 50. 50.
+WorldVolume.Mother 0
+
+
+//This is the CsI Detector
+Include $BURSTCUBE/PixSiDet/VoxelSiPixelProperties.det
+
+Volume SiPix
+SiPix.Material Silicon
+SiPix.Visibility 1
+SiPix.Color 4
+SiPix.Shape BOX 10. 10. 0.4
+
+Volume Foils
+Foils.Material CsI
+Foils.Visibility 1
+Foils.Color 2
+Foils.Shape BOX 10. 10. 0.05
+
+For I 5 0. 1.
+	SiPix.Copy SiPix_%I
+	SiPix_%I.Position 0. 0. $I
+	SiPix_%I.Mother WorldVolume
+Done	
+
+For I 2 0.5 1.
+	Foils.Copy Foils%I
+	Foils%I.Position 0. 0. $I
+	Foils%I.Mother WorldVolume
+Done
+
+
+# Base Trigger
+Trigger MainTrigger
+MainTrigger.Veto false
+MainTrigger.TriggerByDetector true
+MainTrigger.Detector DSiPix 1
+#MainTrigger.Detector DCalCSI 1

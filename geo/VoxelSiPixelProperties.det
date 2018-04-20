@@ -1,0 +1,38 @@
+//Define Calorimeter and Mother Volume
+Voxel3D	DSiPix
+DSiPix.SensitiveVolume SiPix
+DSiPix.DetectorVolume SiPix
+
+DSiPix.StructuralPitch 0. 0. 0.
+DSiPix.StructuralOffset 0. 0. 0.
+
+DSiPix.NoiseThreshold   5 
+DSiPix.TriggerThreshold   10
+
+DSiPix.Offset      0  0  0
+DSiPix.VoxelNumber 1000 1000 1
+DSiPix.NoiseThreshold      10
+DSiPix.TriggerThreshold    20
+DSiPix.EnergyResolution    Gauss 122 122 4.38
+DSiPix.EnergyResolution    Gauss 662 662 8.5
+
+//Define Calorimeter and Mother Volume
+#Scintillator   DCalCSI
+#DCalCSI.SensitiveVolume Foils
+#DCalCSI.DetectorVolume Foils
+#
+#DCalCSI.StructuralPitch 0. 0. 0.
+#DCalCSI.StructuralOffset 0. 0. 0.
+#
+#DCalCSI.NoiseThreshold   5 
+#DCalCSI.TriggerThreshold   10
+#
+#DCalCSI.EnergyResolution Gauss   59.1487365383    59.1487365383   1.75672732561
+#DCalCSI.EnergyResolution Gauss   88.3582208292    88.3582208292   2.19164693114
+#DCalCSI.EnergyResolution Gauss   121.527706289    121.527706289   3.21200882695
+#DCalCSI.EnergyResolution Gauss   319.362442283    319.362442283   8.99991996774
+#DCalCSI.EnergyResolution Gauss   508.071477134    508.071477134   12.9120068089
+
+
+
+
