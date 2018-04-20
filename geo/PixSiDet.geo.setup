@@ -25,7 +25,7 @@ WorldVolume.Mother 0
 
 
 //This is the CsI Detector
-Include $BURSTCUBE/PixSiDet/VoxelSiPixelProperties.det
+Include VoxelSiPixelProperties.det
 
 Volume SiPix
 SiPix.Material Silicon
