@@ -45,11 +45,11 @@ For I 5 0. 1.
 	SiPix_%I.Mother WorldVolume
 Done	
 
-For I 2 0.5 1.
-	Foils.Copy Foils%I
-	Foils%I.Position 0. 0. $I
-	Foils%I.Mother WorldVolume
-Done
+#For I 2 0.5 1.
+#	Foils.Copy Foils%I
+#	Foils%I.Position 0. 0. $I
+#	Foils%I.Mother WorldVolume
+#Done
 
 
 # Base Trigger

@@ -6,15 +6,15 @@ DSiPix.DetectorVolume SiPix
 DSiPix.StructuralPitch 0. 0. 0.
 DSiPix.StructuralOffset 0. 0. 0.
 
-DSiPix.NoiseThreshold   5 
-DSiPix.TriggerThreshold   10
+DSiPix.NoiseThreshold   1
+DSiPix.TriggerThreshold   2
 
 DSiPix.Offset      0  0  0
 DSiPix.VoxelNumber 1000 1000 1
-DSiPix.NoiseThreshold      10
-DSiPix.TriggerThreshold    20
-DSiPix.EnergyResolution    Gauss 122 122 4.38
-DSiPix.EnergyResolution    Gauss 662 662 8.5
+DSiPix.EnergyResolution    Gauss 10 10 0.1
+DSiPix.EnergyResolution    Gauss 50 50 0.5
+DSiPix.EnergyResolution    Gauss 122 122 1.2
+DSiPix.EnergyResolution    Gauss 662 662 6
 
 //Define Calorimeter and Mother Volume
 #Scintillator   DCalCSI
