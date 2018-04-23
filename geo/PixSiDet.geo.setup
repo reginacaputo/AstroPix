@@ -31,13 +31,13 @@ Volume SiPix
 SiPix.Material Silicon
 SiPix.Visibility 1
 SiPix.Color 4
-SiPix.Shape BOX 10. 10. 0.4
+SiPix.Shape BOX 10. 10. 0.05
 
 Volume Foils
 Foils.Material CsI
 Foils.Visibility 1
 Foils.Color 2
-Foils.Shape BOX 10. 10. 0.05
+Foils.Shape BOX 10. 10. 0.4
 
 For I 5 0. 1.
 	SiPix.Copy SiPix_%I
@@ -45,16 +45,16 @@ For I 5 0. 1.
 	SiPix_%I.Mother WorldVolume
 Done	
 
-#For I 2 0.5 1.
-#	Foils.Copy Foils%I
-#	Foils%I.Position 0. 0. $I
-#	Foils%I.Mother WorldVolume
-#Done
+For I 2 0.5 1.
+	Foils.Copy Foils%I
+	Foils%I.Position 0. 0. $I
+	Foils%I.Mother WorldVolume
+Done
 
 
 # Base Trigger
 Trigger MainTrigger
 MainTrigger.Veto false
 MainTrigger.TriggerByDetector true
-MainTrigger.Detector DSiPix 1
-#MainTrigger.Detector DCalCSI 1
+MainTrigger.Detector DSiPix 2
+MainTrigger.Detector DCalCSI 1
