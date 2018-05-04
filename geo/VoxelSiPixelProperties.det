@@ -14,22 +14,55 @@ DSiPix.VoxelNumber 10000 10000 1
 DSiPix.EnergyResolution Gauss 662 662 8.5
 DSiPix.EnergyResolution Gauss 122 122 4.38
 
+// Properties of the single-sided calorimeter
+MDCalorimeter				DCal
+DCal.SensitiveVolume      Foils
+DCal.DetectorVolume 	Foils
+
+DCal.StructuralPitch      0.0  0.0  0.0
+DCal.StructuralOffset     0.0  0.0  0.0
+
+# Calibration data:
+DCal.NoiseThreshold       20
+DCal.TriggerThreshold     50
+
+#CZT resolution
+#DCal.EnergyResolution Gauss   40    40   4
+#DCal.EnergyResolution Gauss  100   100   2
+#DCal.EnergyResolution Gauss  500   500   5
+#DCal.EnergyResolution Gauss  1000  1000  10
+#DCal.EnergyResolution Gauss  2000  2000  30
+#DCal.EnergyResolution Gauss  5000  5000  75
+
+#CSI resolution
+DCalC.NoiseThreshold   5 
+DCal.TriggerThreshold   10
+
+DCal.EnergyResolution Gauss   59.1487365383    59.1487365383   1.75672732561
+DCal.EnergyResolution Gauss   88.3582208292    88.3582208292   2.19164693114
+DCal.EnergyResolution Gauss   121.527706289    121.527706289   3.21200882695
+DCal.EnergyResolution Gauss   319.362442283    319.362442283   8.99991996774
+DCal.EnergyResolution Gauss   508.071477134    508.071477134   12.9120068089
+
 //Define Calorimeter and Mother Volume
-Voxel3D   DCalCSI
-DCalCSI.SensitiveVolume Foils
-DCalCSI.DetectorVolume Foils
+#Voxel3D   DCal
+#DCal.SensitiveVolume Foils
+#DCal.DetectorVolume Foils
+#
+#DCal.Offset      0  0  0
+#DCal.VoxelNumber 10 10 1
+#
+#DCalC.NoiseThreshold   5 
+#DCal.TriggerThreshold   10
+#
+##DCal.EnergyResolution Gauss 662 662 3.0
+##DCal.EnergyResolution Gauss 122 122 1.0
 
-DCalCSI.Offset      0  0  0
-DCalCSI.VoxelNumber 100 100 1
-
-DCalCSI.NoiseThreshold   5 
-DCalCSI.TriggerThreshold   10
-
-DCalCSI.EnergyResolution Gauss   59.1487365383    59.1487365383   1.75672732561
-DCalCSI.EnergyResolution Gauss   88.3582208292    88.3582208292   2.19164693114
-DCalCSI.EnergyResolution Gauss   121.527706289    121.527706289   3.21200882695
-DCalCSI.EnergyResolution Gauss   319.362442283    319.362442283   8.99991996774
-DCalCSI.EnergyResolution Gauss   508.071477134    508.071477134   12.9120068089
+#DCal.EnergyResolution Gauss   59.1487365383    59.1487365383   1.75672732561
+#DCal.EnergyResolution Gauss   88.3582208292    88.3582208292   2.19164693114
+#DCal.EnergyResolution Gauss   121.527706289    121.527706289   3.21200882695
+#DCal.EnergyResolution Gauss   319.362442283    319.362442283   8.99991996774
+#DCal.EnergyResolution Gauss   508.071477134    508.071477134   12.9120068089
 
 
 

@@ -24,7 +24,6 @@ WorldVolume.Shape BRIK 50. 50. 50.
 WorldVolume.Mother 0
 
 
-//This is the CsI Detector
 Include VoxelSiPixelProperties.det
 
 Volume SiPix
@@ -33,22 +32,26 @@ SiPix.Visibility 1
 SiPix.Color 4
 SiPix.Shape BOX 10. 10. 0.05
 
+// Build a single bar: 1.0x1.0x0.4 cm
 Volume Foils
-Foils.Material CsI
 Foils.Visibility 1
 Foils.Color 2
-Foils.Shape BOX 10. 10. 0.4
+Foils.Material CsI
+Foils.Shape BRIK 0.5 0.5 0.2
 
-For I 5 0. 1.
+For I 3 0. 0.6
 	SiPix.Copy SiPix_%I
 	SiPix_%I.Position 0. 0. $I
 	SiPix_%I.Mother WorldVolume
 Done	
 
-For I 2 0.5 1.
-	Foils.Copy Foils%I
-	Foils%I.Position 0. 0. $I
-	Foils%I.Mother WorldVolume
+// Put the CZT bars into the segment
+For I 20 -9.5 1.0
+    For J 20 -9.5 1.0
+    	Foils.Copy Foils%I_%J
+    	Foils%I_%J.Position $I $J -0.5
+    	Foils%I_%J.Mother WorldVolume
+    Done
 Done
 
 
@@ -57,4 +60,4 @@ Trigger MainTrigger
 MainTrigger.Veto false
 MainTrigger.TriggerByDetector true
 MainTrigger.Detector DSiPix 2
-MainTrigger.Detector DCalCSI 1
+MainTrigger.Detector DCal 1
