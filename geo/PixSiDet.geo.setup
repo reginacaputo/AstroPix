@@ -30,7 +30,7 @@ Volume SiPix
 SiPix.Material Silicon
 SiPix.Visibility 1
 SiPix.Color 4
-SiPix.Shape BOX 9. 9. 0.025
+SiPix.Shape BOX 10. 10. 0.025
 
 // Build a single bar: 1.0x1.0x1.0 cm
 Volume Foils
@@ -39,15 +39,15 @@ Foils.Color 2
 Foils.Material CsI
 Foils.Shape BRIK 0.5 0.5 0.5
 
-For I 5 0. 0.6
+For I 10 0. 0.6
 	SiPix.Copy SiPix_%I
 	SiPix_%I.Position 0. 0. $I
 	SiPix_%I.Mother WorldVolume
 Done	
 
 // Put the CZT bars into the segment
-For I 18 -8.5 1.0
-    For J 18 -8.5 1.0
+For I 20 -9.5 1.0
+    For J 20 -9.5 1.0
     	Foils.Copy Foils%I_%J
     	Foils%I_%J.Position $I $J -1.0
     	Foils%I_%J.Mother WorldVolume
