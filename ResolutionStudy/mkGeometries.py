@@ -44,16 +44,13 @@ def run_mkGeometries(**kwargs):
 					os.system('mkdir geometry/%s' %folder_name)
 				geo_new = os.path.basename(geo_base).replace('base', 
 												'%i_%i_%.2f'%(p, t, v))
-				det_new = os.path.basename(det_base).replace('base', 
-											    '%i_%i_%.2f'%(p, t, v))
+				det_new = os.path.basename(det_base).replace('base', '%i_%i_%.2f'%(p, t, v))
 				os.system('cp %s geometry/%s/.' %(geo_base, folder_name))
-				os.system('mv geometry/%s/%s geometry/%s/%s' %(folder_name, 
-												    os.path.basename(geo_base), 
-												    folder_name, geo_new))
+				os.system('mv geometry/%s/%s geometry/%s/%s' \
+					%(folder_name, os.path.basename(geo_base), folder_name, geo_new))
 				os.system('cp %s geometry/%s/.' %(det_base, folder_name))          
-				os.system('mv geometry/%s/%s geometry/%s/%s' %(folder_name, 
-				                                    os.path.basename(det_base), 
-				                                    folder_name, det_new))  
+				os.system('mv geometry/%s/%s geometry/%s/%s' \
+					%(folder_name, os.path.basename(det_base), folder_name, det_new))  
 		print('\n')
 				
 				
