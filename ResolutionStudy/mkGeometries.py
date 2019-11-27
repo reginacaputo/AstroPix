@@ -42,8 +42,7 @@ def run_mkGeometries(**kwargs):
 				folder_name = 'geo_%i_%i_%.2f'%(p, t, v)
 				if not os.path.exists('geometry/%s' %folder_name):
 					os.system('mkdir geometry/%s' %folder_name)
-				geo_new = os.path.basename(geo_base).replace('base', 
-												'%i_%i_%.2f'%(p, t, v))
+				geo_new = os.path.basename(geo_base).replace('base', '%i_%i_%.2f'%(p, t, v))
 				det_new = os.path.basename(det_base).replace('base', '%i_%i_%.2f'%(p, t, v))
 				os.system('cp %s geometry/%s/.' %(geo_base, folder_name))
 				os.system('mv geometry/%s/%s geometry/%s/%s' \
