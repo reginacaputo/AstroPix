@@ -8,9 +8,10 @@
 
 
 PASSIVE = [0, 1, 2, 5, 10]
-
 THICKNESS = [300, 500, 700] #um
-
 VOXELSIZE = [10, 5, 3, 1, 0.5, 0.3, 0.1] #mm
+
+GEO_BASE = 'geometry/geo_base/AstroPix_base.geo.setup'
+DET_BASE = 'geometry/geo_base/AstroPix_base_prop.det'
 
 
