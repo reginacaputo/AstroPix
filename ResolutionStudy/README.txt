@@ -1,4 +1,4 @@
-This study aims to define the ideal pixel sixe for the AstroPix project.
+This study aims to define the ideal pixel size for the AstroPix project.
 
 The basic geopmetry is composed of
     - 50 layers (1mx1m) of voxel detectors
