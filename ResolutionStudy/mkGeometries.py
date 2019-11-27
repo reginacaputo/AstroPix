@@ -30,6 +30,8 @@ def run_mkGeometries(**kwargs):
 	passive = data.PASSIVE
 	thickness = data.THICKNESS
 	voxelsize = data.VOXELSIZE
+	geo_base = data.GEO_BASE
+	det_base = data.DET_BASE
 	for i, p in enumerate(passive):
 		print('PASSIVE %i: %i%%' %(i, p))
 		for j, t in enumerate(thickness):	
@@ -37,10 +39,21 @@ def run_mkGeometries(**kwargs):
 			for k, v in enumerate(voxelsize): 
 				print('VOXEL SIZE %i: %.2f mm' %(k, v))
 				
-				folder_name = 'geo_%i_%i_%.2f' %(p, t, v)
+				folder_name = 'geo_%i_%i_%.2f'%(p, t, v)
 				if not os.path.exists('geometry/%s' %folder_name):
 					os.system('mkdir geometry/%s' %folder_name)
-				                  
+				geo_new = os.path.basename(geo_base).replace('base', 
+												'%i_%i_%.2f'%(p, t, v))
+				det_new = os.path.basename(det_base).replace('base', 
+											    '%i_%i_%.2f'%(p, t, v))
+				os.system('cp %s geometry/%s/.' %(geo_base, folder_name))
+				os.system('mv geometry/%s/%s geometry/%s/%s' %(folder_name, 
+												    os.path.basename(geo_base), 
+												    folder_name, geo_new))
+				os.system('cp %s geometry/%s/.' %(det_base, folder_name))          
+				os.system('mv geometry/%s/%s geometry/%s/%s' %(folder_name, 
+				                                    os.path.basename(det_base), 
+				                                    folder_name, det_new))  
 		print('\n')
 				
 				
