@@ -1,0 +1,43 @@
+// Definition of constants
+Constant voxel_num 1.
+
+
+//Define Calorimeter and Mother Volume
+Voxel3D	DSiPix
+DSiPix.SensitiveVolume SiPix
+DSiPix.DetectorVolume SiPix
+
+DSiPix.StructuralPitch 0. 0. 0.
+DSiPix.StructuralOffset 0. 0. 0.
+
+DSiPix.NoiseThreshold   1
+DSiPix.TriggerThreshold   2
+
+DSiPix.Offset      0  0  0
+DSiPix.VoxelNumber voxel_num voxel_num 1
+
+DSiPix.EnergyResolution Gauss 662 662 8.5
+DSiPix.EnergyResolution Gauss 122 122 4.38
+
+
+//Define Calorimeter and Mother Volume
+Voxel3D   DCal
+DCal.SensitiveVolume CZT_Cal
+DCal.DetectorVolume CZT_Cal
+
+DCal.Offset      0  0  0
+DCal.VoxelNumber 100000 100000 6000
+
+DCal.NoiseThreshold   5 
+DCal.TriggerThreshold   10
+
+
+DCal.EnergyResolution Gauss   59.1487365383    59.1487365383   1.75672732561
+DCal.EnergyResolution Gauss   88.3582208292    88.3582208292   2.19164693114
+DCal.EnergyResolution Gauss   121.527706289    121.527706289   3.21200882695
+DCal.EnergyResolution Gauss   319.362442283    319.362442283   8.99991996774
+DCal.EnergyResolution Gauss   508.071477134    508.071477134   12.9120068089
+
+
+
+

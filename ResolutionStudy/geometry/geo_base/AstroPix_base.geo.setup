@@ -1,0 +1,60 @@
+Name My_PixSiDet
+Verision 0.0
+
+// Definition of constants
+Constant thickness 0.025
+Constant passive_thickness 0.01
+
+// Incude some files
+Include $MEGALIB/resource/examples/geomega/materials/Materials.geo
+Include AstroPix_base_prop.det
+
+SurroundingSphere 150.0 0.0 0.0 0.0 150.0
+
+// The Mother Volume of the Detector Configuration:
+Volume WorldVolume
+WorldVolume.Material Vacuum
+WorldVolume.Visibility 0
+WorldVolume.Color 0
+WorldVolume.Shape BRIK 500. 500. 500.
+WorldVolume.Mother 0
+
+// Build the traker layer
+Volume SiPix
+SiPix.Material Silicon
+SiPix.Visibility 1
+SiPix.Color 36
+SiPix.Shape BOX 50. 50. {thickness*0.5}
+
+// Build the passive material layer
+Volume Passive
+Passive.Visibility 1
+Passive.Color 16
+Passive.Material Silicon
+Passive.Shape BOX 50. 50. {passive_thickness*thickness*0.5}
+
+// Build the tracker
+For I 50 0. 0.7
+	SiPix.Copy SiPix_%I
+	SiPix_%I.Position 0. 0. $I
+	SiPix_%I.Mother WorldVolume
+	Passive.Copy Passive_%I
+	Passive_%I.Position 0. 0. {$I+thickness*0.5+passive_thickness*thickness*0.5+0.1}
+	Passive_%I.Mother WorldVolume
+Done	
+
+// Build the Ideal Calorimeter
+Volume CZT_Cal
+CZT_Cal.Material CZT
+CZT_Cal.Visibility 1
+CZT_Cal.Color 30
+CZT_Cal.Shape BOX 50. 50. 3.
+CZT_Cal.Position 0. 0. -5.
+CZT_Cal.Mother WorldVolume
+
+# Base Trigger
+Trigger MainTrigger
+MainTrigger.Veto false
+MainTrigger.TriggerByDetector true
+MainTrigger.Detector DSiPix 1
+MainTrigger.Detector DCal 1
