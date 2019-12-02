@@ -16,7 +16,7 @@ Volume WorldVolume
 WorldVolume.Material Vacuum
 WorldVolume.Visibility 0
 WorldVolume.Color 0
-WorldVolume.Shape BRIK 500. 500. 500.
+WorldVolume.Shape BRIK 200. 200. 200.
 WorldVolume.Mother 0
 
 // Build the traker layer
@@ -48,7 +48,7 @@ Volume CZT_Cal
 CZT_Cal.Material CZT
 CZT_Cal.Visibility 1
 CZT_Cal.Color 30
-CZT_Cal.Shape BOX 50. 50. 3.
+CZT_Cal.Shape BOX 50. 50. 1.5
 CZT_Cal.Position 0. 0. -5.
 CZT_Cal.Mother WorldVolume
 
@@ -58,3 +58,8 @@ MainTrigger.Veto false
 MainTrigger.TriggerByDetector true
 MainTrigger.Detector DSiPix 1
 MainTrigger.Detector DCal 1
+
+Trigger MainTrigger2
+MainTrigger2.Veto false
+MainTrigger2.TriggerByDetector true
+MainTrigger2.Detector DSiPix 2
