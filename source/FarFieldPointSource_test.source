@@ -2,13 +2,13 @@
 # This was created with the python wrapper --> create_source_file.py <--
 
 Version          1 
-Geometry         ../geo/PixSiDet.geo.setup // Update this to your path 
+Geometry         ../geo/PixSiDet.geo.setup 
 CheckForOverlaps 1000 0.01 
 PhysicsListEM    Livermore 
 
 StoreCalibrate                 true
 StoreSimulationInfo            true
-StoreOnlyEventsWithEnergyLoss  true  // Only relevant if no trigger criteria is given! 
+StoreOnlyEventsWithEnergyLoss  true  
 DiscretizeHits                 true 
 
 Run FFPS 
