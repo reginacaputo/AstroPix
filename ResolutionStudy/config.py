@@ -7,11 +7,13 @@
 #*******************************************************************#
 
 
-PASSIVE = [0, 1, 2, 5, 10]
+PASSIVE = [0.01, 0.02, 0.05, 0.1]
 THICKNESS = [300, 500, 700] #um
-VOXELSIZE = [10, 5, 3, 1, 0.5, 0.3, 0.1] #mm
+VOXELSIZE = [10, 5, 3, 1, 0.5, 0.3, 0.1, 0.05, 0.01] #mm
+ENERGY = [100, 662, 1000] #keV
 
 GEO_BASE = 'geometry/geo_base/AstroPix_base.geo.setup'
 DET_BASE = 'geometry/geo_base/AstroPix_base_prop.det'
+SRC_BASE = 'source/FarFieldPointSource_base.source'
 
 
