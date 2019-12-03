@@ -1,8 +1,7 @@
 // Definition of constants
 Constant voxel_num 1.
 
-
-//Define Calorimeter and Mother Volume
+//Define Tracker and Mother Volume
 Voxel3D	DSiPix
 DSiPix.SensitiveVolume SiPix
 DSiPix.DetectorVolume SiPix
