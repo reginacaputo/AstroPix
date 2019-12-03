@@ -46,7 +46,7 @@ def run_mkGeometries(**kwargs):
 		for j, t in enumerate(thickness):	
 			print('THICKNESS %i: %.2f cm' %(j, t/10000))
 			for k, v in enumerate(voxelnum): 
-				print('VOXEL SIZE %i: %.2f cm' %(k, voxelsize[k]))
+				print('VOXEL SIZE %i: %.2f mm' %(k, voxelsize[k]))
 				print('--> NUM. VOXELS: %ix%i' %(v, v))
 				#___Create new folders and modify files___#
 				folder_name = 'geo_%.2f_%i_%.2f'%(p, t, voxelsize[k])
@@ -107,6 +107,7 @@ if __name__ == '__main__':
 	print("--------------------")
 	print("---- Start  Run ----")
 	print("--------------------")
+	print('\n')
 
 	run_mkGeometries(**args.__dict__)
 	
