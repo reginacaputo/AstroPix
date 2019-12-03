@@ -16,4 +16,5 @@ GEO_BASE = 'geometry/geo_base/AstroPix_base.geo.setup'
 DET_BASE = 'geometry/geo_base/AstroPix_base_prop.det'
 SRC_BASE = 'source/FarFieldPointSource_base.source'
 
-
+REVAN_CFG = 'source/FFPS.revan.cfg'
+MIMREC_CFG = 'source/FFPS.mimrec.cfg'
