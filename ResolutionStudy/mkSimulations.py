@@ -27,7 +27,7 @@ def get_var_from_file(filename):
     data = SourceFileLoader('data', filename).load_module()
     f.close()
     
-def run_mkGeometries(**kwargs):
+def run_mkSimulations(**kwargs):
 	assert(kwargs['config'].endswith('.py'))
 	get_var_from_file(kwargs['config'])
 	
@@ -41,7 +41,8 @@ def run_mkGeometries(**kwargs):
 	line_geometry = 1
 	line_filename = 10
 	line_energy = 16
-
+	
+	geos_list, srcs_list = [], []
 	for i, p in enumerate(passive):
 		print('PASSIVE %i: %i%%' %(i, p*100))
 		for j, t in enumerate(thickness):	
@@ -69,22 +70,24 @@ def run_mkGeometries(**kwargs):
 					line_list_g = lines[line_geometry].split()
 					line_list_g[-1] = geo_new+'\n'
 					lines[line_geometry] = ' '.join(line_list_g)
-					line_list_f = lines[line_geometry].split()
-					line_list_f[-1] = src_new+'\n'
+					line_list_f = lines[line_filename].split()
+					line_list_f[-1] = os.path.basename(src_new)+'\n'
 					lines[line_filename] = ' '.join(line_list_f)
 					src_f.close()
 					with open(src_new, 'w') as f:
 						for line in lines:
 							f.write(line)
 					f.close()
+					geos_list.append(geo_new)
+					srcs_list.append(src_new)
 					
 		print('\n')
 	if kwargs['simulate'] == True:
-		for s in os.listdir('source/'):
-			print('---> Running %s...' %s)
-			os.system('cosima source/%s' %s) 
-			print('<--- done.')
-		
+		with open('source/run_sim.sh', 'w') as ff:
+			for i, s in enumerate(srcs_list):
+				ff.write('cosima %s \n' %s)
+		ff.close()
+		print('---> Created source/run_sim.sh ...!')
 						
 if __name__ == '__main__':
 	args = PARSER.parse_args()
@@ -94,7 +97,7 @@ if __name__ == '__main__':
 	print("--------------------")
 	print('\n')
 	
-	run_mkGeometries(**args.__dict__)
+	run_mkSimulations(**args.__dict__)
 	
 	print("--------------------")
 	print("----- End  Run -----")
