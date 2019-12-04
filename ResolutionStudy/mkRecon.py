@@ -36,11 +36,6 @@ def run_mkRecon(**kwargs):
 	src_base = data.SRC_BASE
 	energy = data.ENERGY
 	revan_cfg = data.REVAN_CFG
-	mimrec_cfg = data.MIMREC_CFG
-	
-	line_geometry = 1
-	line_filename = 10
-	line_energy = 16
 	
 	geos_list, sims_list, outs_list = [], [], []
 	for i, p in enumerate(passive):
