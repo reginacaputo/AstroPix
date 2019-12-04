@@ -1,0 +1,18 @@
+Version          1 
+Geometry         geometry/geometry_base/AstroPix_base.geo.setup
+PhysicsListEM    Livermore 
+
+StoreCalibrate                 true
+StoreSimulationInfo            true
+StoreOnlyEventsWithEnergyLoss  true 
+DiscretizeHits                 true 
+
+Run FFPS 
+FFPS.FileName              FarFieldPointSource_500.000keV_Cos1.0
+FFPS.NTriggers             50000 
+
+FFPS.Source One 
+One.ParticleType        1 
+One.Beam                FarFieldPointSource  0.0 0 
+One.Spectrum            Mono  100
+One.Flux                1000.0 
