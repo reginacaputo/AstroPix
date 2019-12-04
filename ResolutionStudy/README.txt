@@ -50,8 +50,8 @@ Description of the files:
 How to run the routines:
 ------------------------
 
- *>>> python mkGeometries.py -c config.py
- *>>> python mkSimulations.py -c config.py -sim True
- *>>> python mkRecon.py -c config.py
- *>>> python mkARM.py -c config.py --show True
- *>>> python mkARManalysis.py -c config.py
+ >>> python mkGeometries.py -c config.py
+ >>> python mkSimulations.py -c config.py -sim True
+ >>> python mkRecon.py -c config.py
+ >>> python mkARM.py -c config.py --show True
+ >>> python mkARManalysis.py -c config.py
