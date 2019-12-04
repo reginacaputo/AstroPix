@@ -19,7 +19,7 @@ PARSER = argparse.ArgumentParser(description=__description__, formatter_class=fo
 PARSER.add_argument('-c', '--config', type=str, required=True,
                     help='the input configuration file')
 PARSER.add_argument('-sim', '--simulate', type=bool, required=False, default=False,
-                    help='True if you want to run the all the simulatios')
+                    help='If True creates a .sh file with the commands to run simulations')
 
 def get_var_from_file(filename):
     f = open(filename)
