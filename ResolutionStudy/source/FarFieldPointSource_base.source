@@ -8,8 +8,8 @@ StoreOnlyEventsWithEnergyLoss  true
 DiscretizeHits                 true 
 
 Run FFPS 
-FFPS.FileName              FarFieldPointSource_500.000keV_Cos1.0
-FFPS.NTriggers             50000 
+FFPS.FileName             FarFieldPointSource_1000keV
+FFPS.Triggers             200000 
 
 FFPS.Source One 
 One.ParticleType        1 
