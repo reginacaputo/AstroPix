@@ -15,8 +15,8 @@ DSiPix.TriggerThreshold   20
 DSiPix.Offset      0  0  0
 DSiPix.VoxelNumber voxel_num voxel_num 1
 
-DSiPix.EnergyResolution Gauss 662 662 4.25
-DSiPix.EnergyResolution Gauss 122 122 2.2
+DSiPix.EnergyResolution Gauss 662 662 4.25 
+DSiPix.EnergyResolution Gauss 122 122 2.2  
 
 
 //Define Calorimeter and Mother Volume

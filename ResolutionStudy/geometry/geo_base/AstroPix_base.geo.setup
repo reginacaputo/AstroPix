@@ -53,13 +53,13 @@ CZT_Cal.Position 0. 0. -5.
 CZT_Cal.Mother World
 
 // Base Trigger
-Trigger MainTrigger
-MainTrigger.Veto false
-MainTrigger.TriggerByDetector true
-MainTrigger.Detector DSiPix 1
-MainTrigger.Detector DCal 1
+Trigger Trg_SiPix1Cal1
+Trg_SiPix1Cal1.Veto false
+Trg_SiPix1Cal1.TriggerByDetector true
+Trg_SiPix1Cal1.Detector DSiPix 1
+Trg_SiPix1Cal1.Detector DCal 1
 
-Trigger MainTrigger2
-MainTrigger2.Veto false
-MainTrigger2.TriggerByDetector true
-MainTrigger2.Detector DSiPix 2
+Trigger Trg_SiPix2
+Trg_SiPix2.Veto false
+Trg_SiPix2.TriggerByDetector true
+Trg_SiPix2.Detector DSiPix 2
