@@ -56,7 +56,7 @@ def run_mkRecon(**kwargs):
 					outs_list.append(out_root)
 		print('\n')
 	for i, s in enumerate(sims_list):
-		os.system('revan -f %s -g %s -c %s -a' %(s, geos_list[i], revan_cfg))
+		os.system('revan -f %s -g %s -c %s -a &' %(s, geos_list[i], revan_cfg))
 	print('---> done ...!')
 						
 if __name__ == '__main__':
