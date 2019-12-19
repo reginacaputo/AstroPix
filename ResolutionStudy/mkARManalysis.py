@@ -11,13 +11,24 @@ import sys
 import argparse
 import numpy as np
 from importlib.machinery import SourceFileLoader
+import scipy.integrate as integrate
+import scipy.signal as signal
+import matplotlib.pyplot as plt
 
 __description__ = 'Creates the AstroPix geometry configurations'
 
 formatter = argparse.ArgumentDefaultsHelpFormatter
 PARSER = argparse.ArgumentParser(description=__description__, formatter_class=formatter)
-PARSER.add_argument('-c', '--config', type=str, required=True,
-                    help='the input configuration file')
+PARSER.add_argument('-lf', '--logfiles', type=str, required=True, nargs='*',
+                    help='the log files saved from mkARM.py run')
+PARSER.add_argument('-lab', '--labels', type=str, required=True, nargs='*',
+                    help='the lables for the plot legend')
+PARSER.add_argument('-t', '--title', type=str, required=True,
+                    help='title of the plot')
+PARSER.add_argument('-ofl', '--outflabel', type=str, required=True,
+                    help='label for fig file name')
+PARSER.add_argument('--show', type=bool, required=False, default=True,
+                    help='if true the images will be shown')
 
 def get_var_from_file(filename):
     f = open(filename)
@@ -25,33 +36,87 @@ def get_var_from_file(filename):
     data = SourceFileLoader('data', filename).load_module()
     f.close()
     
+def log_file_parsing(log_file):
+	passive, thickness, energy = 0, 0, 0
+	pixsize = []
+	ARM_fwhm = []
+	ARM_rms = []
+	ARM_centroid = []
+	ARM_integral = []	
+	analyzed_events = []
+	f = open(log_file)
+	for line in f:
+		if 'Analyzed Compton and pair events' in line:
+			analyzed_events.append(float(line.split(' ')[-1]))
+		if 'FWHM' in line:
+			ARM_fwhm.append(float(line.split(' ')[-2]))
+		if 'Maximum of fit (x position)' in line:
+			ARM_centroid.append(float(line.split(' ')[-13]))
+			std = ARM_fwhm[-1]*0.6
+			m = ARM_centroid[-1]
+			int, interr = integrate.quad(lambda x: 1/(std*(2*np.pi)**0.5)*np.exp((x-m)**2/(-2*std**2)), 
+								-ARM_fwhm[-1]/2, ARM_fwhm[-1]/2)
+			ARM_integral.append(int)
+		if 'PASSIVE' in line:
+			passive = float(line.split(' ')[-1].replace('%', ''))
+		if 'ENERGY' in line:
+			energy = float(line.split(' ')[-2])
+		if 'THICKNESS' in line:
+			thickness = float(line.split(' ')[-2])
+		if 'VOXEL SIZE' in line:
+			pixsize.append(float(line.split(' ')[-2]))
+			
+	label_params = (passive, thickness, energy)
+	value_labels = (pixsize, ARM_fwhm, ARM_integral, ARM_centroid, analyzed_events)
+	return label_params, value_labels
+    
 def run_mkARManalysis(**kwargs):
-	assert(kwargs['config'].endswith('.py'))
-	get_var_from_file(kwargs['config'])
+	c = ['darkgreen', 'teal', 'orange', 'magenta', 'saddlebrown']
 	
-	passive = data.PASSIVE
-	thickness = data.THICKNESS
-	voxelsize = data.VOXELSIZE
-	geo_base = data.GEO_BASE
-	src_base = data.SRC_BASE
-	energy = data.ENERGY
+	print('---> Centroid plot')
+	plt.figure(figsize=(6,8))
+	for i, log_f in enumerate(kwargs['logfiles']):
+		assert(log_f.endswith('.txt'))
+		lab = kwargs['labels'][i]
+		offset = i*0.1+1
+		lparams, vlists = log_file_parsing(log_f)
+		print('---> Simulations parameters: (passive, thickness, energy)=', lparams)
+		plt.errorbar(vlists[3], np.array(vlists[0])*offset, xerr=vlists[1], yerr=None, 
+		fmt='.', color=c[i], mew=0, alpha=0.3, linewidth=3, label=lab)
+		plt.plot(vlists[3], np.array(vlists[0])*offset, '.', color='0.3')
+	plt.title (kwargs['title'], size=16)
+	plt.plot([0, 0],[0.001,50], '--', color='silver', linewidth=0.5)
+	plt.xlabel('ARM Centroid [deg]', size=15)
+	plt.ylabel('Pixel Size [mm]', size=15)
+	plt.xlim(-7, 6)
+	plt.ylim(1e-3, 20)
+	plt.yscale('log')
+	plt.legend(loc=3, fontsize=15)
+	plt.savefig('figs/ARMcntr_%s.png'%kwargs['outflabel'], format='png')
+	plt.savefig('figs/ARMcntr_%s.pdf'%kwargs['outflabel'], format='pdf')
 	
-	outs_list = []
-	for i, p in enumerate(passive):
-		print('PASSIVE %i: %i%%' %(i, p*100))
-		for j, t in enumerate(thickness):	
-			print('THICKNESS %i: %.2f cm' %(j, t/10000))
-			for k, v in enumerate(voxelsize): 
-				print('VOXEL SIZE %i: %.2f mm' %(k, v))
-				geo_new = geo_base.replace('base', '%.2f_%i_%.2f' %(p, t, v))
-				for n, e in enumerate(energy):
-					print('ENERGY: %i keV'%e)
-					out_root = 'simres/arm_%.2f_%i_%.2f_en%i.root' %(p, t, v, e)
-					outs_list.append(out_root)
-		print('\n')
-	for i, o in enumerate(outs_list):
-		print('PyRoot needed')	
-						
+	print('\n')
+	print('---> FWHM plot')
+	plt.figure(figsize=(6,5))
+	for i, log_f in enumerate(kwargs['logfiles']):
+		assert(log_f.endswith('.txt'))
+		lab = kwargs['labels'][i]
+		offset = i*0.1+1
+		lparams, vlists = log_file_parsing(log_f)
+		print('---> Simulations parameters: (passive, thickness, energy)=', lparams)
+		plt.plot(vlists[0], vlists[1], 'o--', label=lab, color=c[i])
+	plt.title (kwargs['title'], size=16)
+	plt.ylabel('ARM FWHM [deg]', size=15)
+	plt.xlabel('Pixel Size [mm]', size=15)
+	plt.ylim(0, 5)
+	plt.xscale('log')
+	plt.legend(loc=2, fontsize=15)
+	plt.savefig('figs/ARMfwhm_%s.png'%kwargs['outflabel'], format='png')
+	plt.savefig('figs/ARMfwhm_%s.pdf'%kwargs['outflabel'], format='pdf')
+	
+	if kwargs['show']:
+		plt.show()
+	
 if __name__ == '__main__':
 	args = PARSER.parse_args()
 	
@@ -61,7 +126,7 @@ if __name__ == '__main__':
 	print('\n')
 	
 	run_mkARManalysis(**args.__dict__)
-	
+
 	print("--------------------")
 	print("----- End  Run -----")
 	print("--------------------")
