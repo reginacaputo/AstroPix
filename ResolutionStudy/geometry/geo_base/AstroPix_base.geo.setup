@@ -30,7 +30,7 @@ SiPix.Shape BOX 50. 50. {thickness*0.5}
 Volume Passive
 Passive.Visibility 1
 Passive.Color 16
-Passive.Material Silicon
+Passive.Material Silicon 
 Passive.Shape BOX 50. 50. {passive_thickness*thickness*0.5}
 
 // Build the tracker
