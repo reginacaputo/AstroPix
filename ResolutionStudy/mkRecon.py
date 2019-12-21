@@ -37,7 +37,7 @@ def run_mkRecon(**kwargs):
 	energy = data.ENERGY
 	revan_cfg = data.REVAN_CFG
 	
-	geos_list, sims_list, outs_list = [], [], []
+	geos_list, sims_list, outs_list, outlog_list = [], [], [], []
 	for i, p in enumerate(passive):
 		print('PASSIVE %i: %i%%' %(i, p*100))
 		for j, t in enumerate(thickness):	
@@ -54,9 +54,11 @@ def run_mkRecon(**kwargs):
 					geos_list.append(geo_new)
 					sims_list.append(sim_new)	
 					outs_list.append(out_root)
+					outlog_list.append('simres/revan-log_%.2f_%i_%.2f_en%i.txt' %(p, t, v, e))
 		print('\n')
 	for i, s in enumerate(sims_list):
-		os.system('revan -f %s -g %s -c %s -a &' %(s, geos_list[i], revan_cfg))
+		os.system('revan -f %s -g %s -c %s -a  > %s &' %(s, geos_list[i], 
+														 revan_cfg, outlog_list[i]))
 	print('---> done ...!')
 						
 if __name__ == '__main__':
