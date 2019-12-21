@@ -78,16 +78,33 @@ def run_mkEFFanalysis(**kwargs):
 	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  'saddlebrown', 'lightcoral' ]
 	for i, l in enumerate(tot_listoflists):
 		l = np.array(l)
-		ana_evts = np.array(analyzed_events_listoflists[i])[1:]
+		ana_evts = np.array(analyzed_events_listoflists[i])[:]
 		plt.plot(voxelsize, ana_evts/l, 'o--', label='passive %i%%' %(passive[i]*100), 
 				color=c[i])
 	plt.xlabel('Pixel Size [mm]', size=15)
 	plt.ylabel('Selected events / Tot Events', size=15)
 	plt.xscale('log')
-	plt.ylim(0.1, 0.5)
-	plt.legend(loc=4, fontsize=16)
+	plt.ylim(-0.1, 0.5)
+	plt.legend(loc=4, fontsize=12)
 	plt.savefig('figs/AEFF_%s.png'%kwargs['outflabel'], format='png')
 	plt.savefig('figs/AEFF_%s.pdf'%kwargs['outflabel'], format='pdf')
+	
+	plt.figure(figsize=(6,5))
+	plt.title('Effective area relative to %i%% passive material'%(passive[-1]*100))
+	for i, l in enumerate(tot_listoflists[:-1]):
+		l = np.array(l)
+		ana_evts = np.array(analyzed_events_listoflists[i])
+		ana_evts0 = np.array(analyzed_events_listoflists[-1])
+		eff0 = (ana_evts0/tot_listoflists[-1])
+		plt.plot(voxelsize, (eff0-ana_evts/l)/eff0*100, 'o--', label='passive %i%%' %(passive[i]*100), 
+				color=c[i])
+		plt.plot([0.01, 10.], [0, 0], '--', color='silver', linewidth=0.5)
+	plt.xlabel('Pixel Size [mm]', size=15)
+	plt.ylabel('(A$_{eff, 0}$ - A$_{eff}$)/A$_{eff,0}$ [%]', size=15)
+	plt.xscale('log')
+	plt.legend(loc=1, fontsize=12)
+	plt.savefig('figs/AEFFrel_%s.png'%kwargs['outflabel'], format='png')
+	plt.savefig('figs/AEFFrel_%s.pdf'%kwargs['outflabel'], format='pdf')
 	
 	if kwargs['show']:
 		plt.show()
