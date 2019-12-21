@@ -51,7 +51,7 @@ def log_file_parsing(log_file):
 		if 'FWHM' in line:
 			ARM_fwhm.append(float(line.split(' ')[-2]))
 		if 'Maximum of fit (x position)' in line:
-			ARM_centroid.append(float(line.split(' ')[-13]))
+			ARM_centroid.append(float(line.split(' ')[17]))
 			std = ARM_fwhm[-1]*0.6
 			m = ARM_centroid[-1]
 			int, interr = integrate.quad(lambda x: 1/(std*(2*np.pi)**0.5)*np.exp((x-m)**2/(-2*std**2)), 
@@ -71,7 +71,8 @@ def log_file_parsing(log_file):
 	return label_params, value_labels
     
 def run_mkARManalysis(**kwargs):
-	c = ['darkgreen', 'teal', 'orange', 'magenta', 'saddlebrown']
+	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  
+		 'saddlebrown', 'lightcoral' ]
 	
 	print('---> Centroid plot')
 	plt.figure(figsize=(6,8))
@@ -114,6 +115,9 @@ def run_mkARManalysis(**kwargs):
 	plt.savefig('figs/ARMfwhm_%s.png'%kwargs['outflabel'], format='png')
 	plt.savefig('figs/ARMfwhm_%s.pdf'%kwargs['outflabel'], format='pdf')
 	
+	for i, log_f in enumerate(kwargs['logfiles']):
+		lparams, vlists = log_file_parsing(log_f)
+		print('Analyzed events (p %i%%)): '%lparams[0], vlists[-1])
 	if kwargs['show']:
 		plt.show()
 	
