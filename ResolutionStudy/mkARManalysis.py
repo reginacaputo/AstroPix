@@ -71,7 +71,7 @@ def log_file_parsing(log_file):
 	return label_params, value_labels
     
 def run_mkARManalysis(**kwargs):
-	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  
+	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  '0.4', 
 		 'saddlebrown', 'lightcoral' ]
 	
 	print('---> Centroid plot')
