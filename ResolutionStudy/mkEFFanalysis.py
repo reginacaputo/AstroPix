@@ -75,7 +75,7 @@ def run_mkEFFanalysis(**kwargs):
 		
 	plt.figure(figsize=(6,5))
 	plt.title('Effective area and passive material')
-	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  'saddlebrown', 'lightcoral' ]
+	c = ['firebrick', 'peru', 'teal', 'darkolivegreen', 'rebeccapurple',  'orange',  '0.4', 'saddlebrown', 'lightcoral' ]
 	for i, l in enumerate(tot_listoflists):
 		l = np.array(l)
 		ana_evts = np.array(analyzed_events_listoflists[i])[:]
