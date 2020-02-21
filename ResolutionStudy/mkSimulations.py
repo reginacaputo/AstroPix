@@ -10,7 +10,6 @@ import os
 import sys
 import argparse
 import numpy as np
-from importlib.machinery import SourceFileLoader
 
 __description__ = 'Creates the AstroPix geometry configurations'
 
@@ -21,11 +20,20 @@ PARSER.add_argument('-c', '--config', type=str, required=True,
 PARSER.add_argument('-sim', '--simulate', type=bool, required=False, default=False,
                     help='If True creates a .sh file with the commands to run simulations')
 
-def get_var_from_file(filename):
-    f = open(filename)
-    global data
-    data = SourceFileLoader('data', filename).load_module()
-    f.close()
+if (sys.version_info > (3, 0)):
+    from importlib.machinery import SourceFileLoader
+    def get_var_from_file(filename):
+        f = open(filename)
+        global data
+        data = SourceFileLoader('data', filename).load_module()
+        f.close()
+else:
+    import imp
+    def get_var_from_file(filename):
+        f = open(filename)
+        global data
+        data = imp.load_source('data', '', f)
+        f.close()
     
 def run_mkSimulations(**kwargs):
 	assert(kwargs['config'].endswith('.py'))
