@@ -82,14 +82,14 @@ def run_mkARManalysis(**kwargs):
 		offset = i*0.1+1
 		lparams, vlists = log_file_parsing(log_f)
 		print('---> Simulations parameters: (passive, thickness, energy)=', lparams)
-		plt.errorbar(vlists[3], np.array(vlists[0])*offset, xerr=vlists[1], yerr=None, 
+		plt.errorbar(vlists[3], np.array(vlists[0])*offset, xerr=np.array(vlists[1])/2, yerr=None, 
 		fmt='.', color=c[i], mew=0, alpha=0.3, linewidth=3, label=lab)
 		plt.plot(vlists[3], np.array(vlists[0])*offset, '.', color='0.3')
 	plt.title (kwargs['title'], size=16)
 	plt.plot([0, 0],[0.001,50], '--', color='silver', linewidth=0.5)
 	plt.xlabel('ARM Centroid [deg]', size=15)
 	plt.ylabel('Pixel Size [mm]', size=15)
-	plt.xlim(-7, 6)
+	plt.xlim(-8, 8)
 	plt.ylim(1e-3, 20)
 	plt.yscale('log')
 	plt.legend(loc=3, fontsize=15)
@@ -109,7 +109,7 @@ def run_mkARManalysis(**kwargs):
 	plt.title (kwargs['title'], size=16)
 	plt.ylabel('ARM FWHM [deg]', size=15)
 	plt.xlabel('Pixel Size [mm]', size=15)
-	plt.ylim(0, 5)
+	plt.ylim(0, 8)
 	plt.xscale('log')
 	plt.legend(loc=2, fontsize=15)
 	plt.savefig('figs/ARMfwhm_%s.png'%kwargs['outflabel'], format='png')
