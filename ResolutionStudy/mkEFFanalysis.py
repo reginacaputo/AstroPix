@@ -85,6 +85,7 @@ def run_mkEFFanalysis(**kwargs):
 	plt.ylabel('Selected events / Tot Events', size=15)
 	plt.xscale('log')
 	plt.ylim(-0.1, 0.5)
+	plt.xlim(7e-3, 15)
 	plt.legend(loc=4, fontsize=12)
 	plt.savefig('figs/AEFF_%s.png'%kwargs['outflabel'], format='png')
 	plt.savefig('figs/AEFF_%s.pdf'%kwargs['outflabel'], format='pdf')
