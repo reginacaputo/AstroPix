@@ -76,6 +76,17 @@ def MegaSimEventToDict(Event, Geometry, TimeOffset = 0):
     
     thePixelHits = []
     
+    #In MEGAlib convention, GetICOrigin() is the "vector" of the original particle or gamma "towards the detector".
+    #Multiplied by -1, this is the vector "to the source".
+    #Meaning, theta=0 would correspond to a particle from zenith (top of the detector),
+    #theta=90 degrees is a particle from the side,
+    #theta=180 degrees is a particle from the bottom (albedo).
+    #(I THINK)
+    initialParticleDirection = -1*Event.GetICOrigin()
+    
+    #this is the position at which the particle is injected/initialized, not the first interaction
+    initialPosition = Event.GetIAAt(0).GetPosition()
+    
     #loop over simulated hits
     for iH in range(0, Event.GetNHTs()):
         theHit = Event.GetHTAt(iH)
@@ -93,6 +104,13 @@ def MegaSimEventToDict(Event, Geometry, TimeOffset = 0):
             hitDict["HitZ"] = hitPos.GetZ()
             hitDict["HitEnergyMeV"] = theHit.GetEnergy()/1e3 #Energy deposit given in keV, convert to MeV
             
+            hitDict["InitialTheta"] = initialPhotonDirection.Theta()
+            hitDict["InitialPhi"] =  initialPhotonDirection.Phi()
+            hitDict["InitialX"] = initialPosition.GetX()
+            hitDict["InitialY"] = initialPosition.GetY()
+            hitDict["InitialZ"] = initialPosition.GetZ()
+            
+
             #These two aren't really helpfull, just for illustration.
             #hitDict["HitDetector"] = Geometry.GetDetector( theHit.GetPosition() ).GetName().Data()
             #hitDict["HitVolume"] = Geometry.GetVolume( theHit.GetPosition() ).GetName().Data()
@@ -172,7 +190,7 @@ def readOneSetOfSims( geometry, simFileName, MaxTime=None, TimeOffset=0):
     
     
 #example for how to use the functions above to write a .csv file to disk.
-readOneSetOfSims( "/Users/hfleisc1/amego_software/ComPair/sim_scripts/run_scripts/../../Geometry/AMEGO_Midex/TradeStudies/Tracker/BasePixelTracker/AmegoBase.geo.setup",  "/Users/hfleisc1/amego_software/ComPair/simfiles/test_pixel/sim/FarFieldPointSource_100.000MeV_Cos0.8_Phi0.0.inc1.id1.sim" )
+# readOneSetOfSims( "/Users/hfleisc1/amego_software/ComPair/sim_scripts/run_scripts/../../Geometry/AMEGO_Midex/TradeStudies/Tracker/BasePixelTracker/AmegoBase.geo.setup",  "/Users/hfleisc1/amego_software/ComPair/simfiles/test_pixel/sim/FarFieldPointSource_100.000MeV_Cos0.8_Phi0.0.inc1.id1.sim" )
 
 
 #afterwards, the dataframe can be read back in from the .csv file using pandas.read_csv("filename" )
